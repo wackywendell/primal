@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>slow_primes</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.PrimeIterator.html'>PrimeIterator</a><a class='struct ' href='struct.Primes.html'>Primes</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.as_perfect_power.html'>as_perfect_power</a><a class='fn ' href='fn.as_prime_power.html'>as_prime_power</a><a class='fn ' href='fn.estimate_nth_prime.html'>estimate_nth_prime</a><a class='fn ' href='fn.estimate_prime_pi.html'>estimate_prime_pi</a><a class='fn ' href='fn.is_prime_miller_rabin.html'>is_prime_miller_rabin</a></div>
+        <p class='location'><a href='index.html'>slow_primes</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.PrimeIterator.html' title='Iterator over the primes stored in a sieve.'>PrimeIterator</a><a class='struct ' href='struct.Primes.html' title='Stores information about primes up to some limit.'>Primes</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.as_perfect_power.html' title='Returns integers `(y, k)` such that `x = y^k` with `k` maximised (other than for `x = 0, 1`, in which case `y = x`, `k = 1`).'>as_perfect_power</a><a class='fn ' href='fn.as_prime_power.html' title='Return `Some((p, k))` if `x = p^k` for some prime `p` and `k &gt;= 1` (that is, including when `x` is itself a prime).'>as_prime_power</a><a class='fn ' href='fn.estimate_nth_prime.html' title='Gives estimated bounds for *p&lt;sub&gt;n&lt;/sub&gt;*, the `n`th prime number, 1-indexed (i.e. *p&lt;sub&gt;1&lt;/sub&gt;* = 2, *p&lt;sub&gt;2&lt;/sub&gt;* = 3).'>estimate_nth_prime</a><a class='fn ' href='fn.estimate_prime_pi.html' title='Returns estimated bounds for π(*n*), the number of primes less than or equal to `n`.'>estimate_prime_pi</a><a class='fn ' href='fn.is_prime_miller_rabin.html' title='Test if `n` is prime, using the deterministic version of the Miller-Rabin test.'>is_prime_miller_rabin</a></div>
     </section>
 
     <nav class="sub">
@@ -42,10 +42,9 @@
 
     <section id='main' class="content type">
 <h1 class='fqn'><span class='in-band'><a href='index.html'>slow_primes</a>::<wbr><a class='type' href=''>Factors</a><wbr></span><span class='out-of-band'><span id='render-detail'>
-            <a id="collapse-all" href="#">[-]
-            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-3443' href='../src/slow_primes/home/huon/projects/random-rust-repos/src/slow_primes/src/lib.rs.html#79'>[src]</a></span></h1>
-<pre class='rust typedef'>type Factors = <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>)</a>&gt;;</pre><div class='docblock'><p>(prime, exponent) pairs storing the prime factorisation of a
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-3496' href='../src/slow_primes/lib.rs.html#82'>[src]</a></span></h1>
+<pre class='rust typedef'>type Factors = <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</a>&gt;;</pre><div class='docblock'><p>(prime, exponent) pairs storing the prime factorisation of a
 number.</p>
 </div></section>
     <section id='search' class="content hidden"></section>

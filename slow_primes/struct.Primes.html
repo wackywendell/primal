@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>slow_primes</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.PrimeIterator.html'>PrimeIterator</a><a class='struct current' href='struct.Primes.html'>Primes</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.as_perfect_power.html'>as_perfect_power</a><a class='fn ' href='fn.as_prime_power.html'>as_prime_power</a><a class='fn ' href='fn.estimate_nth_prime.html'>estimate_nth_prime</a><a class='fn ' href='fn.estimate_prime_pi.html'>estimate_prime_pi</a><a class='fn ' href='fn.is_prime_miller_rabin.html'>is_prime_miller_rabin</a></div>
+        <p class='location'><a href='index.html'>slow_primes</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.PrimeIterator.html' title='Iterator over the primes stored in a sieve.'>PrimeIterator</a><a class='struct current' href='struct.Primes.html' title='Stores information about primes up to some limit.'>Primes</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.as_perfect_power.html' title='Returns integers `(y, k)` such that `x = y^k` with `k` maximised (other than for `x = 0, 1`, in which case `y = x`, `k = 1`).'>as_perfect_power</a><a class='fn ' href='fn.as_prime_power.html' title='Return `Some((p, k))` if `x = p^k` for some prime `p` and `k &gt;= 1` (that is, including when `x` is itself a prime).'>as_prime_power</a><a class='fn ' href='fn.estimate_nth_prime.html' title='Gives estimated bounds for *p&lt;sub&gt;n&lt;/sub&gt;*, the `n`th prime number, 1-indexed (i.e. *p&lt;sub&gt;1&lt;/sub&gt;* = 2, *p&lt;sub&gt;2&lt;/sub&gt;* = 3).'>estimate_nth_prime</a><a class='fn ' href='fn.estimate_prime_pi.html' title='Returns estimated bounds for π(*n*), the number of primes less than or equal to `n`.'>estimate_prime_pi</a><a class='fn ' href='fn.is_prime_miller_rabin.html' title='Test if `n` is prime, using the deterministic version of the Miller-Rabin test.'>is_prime_miller_rabin</a></div>
     </section>
 
     <nav class="sub">
@@ -42,29 +42,28 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>slow_primes</a>::<wbr><a class='struct' href=''>Primes</a><wbr></span><span class='out-of-band'><span id='render-detail'>
-            <a id="collapse-all" href="#">[-]
-            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-1135' href='../src/slow_primes/home/huon/projects/random-rust-repos/src/slow_primes/src/sieve.rs.html#9-13'>[src]</a></span></h1>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1130' href='../src/slow_primes/sieve.rs.html#10-14'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Primes {
     // some fields omitted
 }</pre><div class='docblock'><p>Stores information about primes up to some limit.</p>
 
 <p>This uses at least <code>limit / 16 + O(1)</code> bytes of storage.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../slow_primes/struct.Primes.html' title='slow_primes::Primes'>Primes</a></code></h3><div class='impl-methods'><h4 id='method.sieve' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.sieve' class='fnname'>sieve</a>(limit: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>) -&gt; <a class='struct' href='../slow_primes/struct.Primes.html' title='slow_primes::Primes'>Primes</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl <a class='struct' href='../slow_primes/struct.Primes.html' title='slow_primes::Primes'>Primes</a></code></h3><div class='impl-items'><h4 id='method.sieve' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.sieve' class='fnname'>sieve</a>(limit: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../slow_primes/struct.Primes.html' title='slow_primes::Primes'>Primes</a></code></h4>
 <div class='docblock'><p>Construct a <code>Primes</code> via a sieve up to at least <code>limit</code>.</p>
 
 <p>This stores all primes less than <code>limit</code> (and possibly some
 more), allowing for very efficient iteration and primality
 testing below this, and guarantees that all numbers up to
 <code>limit^2</code> can be factorised.</p>
-</div><h4 id='method.upper_bound' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.upper_bound' class='fnname'>upper_bound</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a></code></h4>
+</div><h4 id='method.upper_bound' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.upper_bound' class='fnname'>upper_bound</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
 <div class='docblock'><p>The largest number stored.</p>
-</div><h4 id='method.is_prime' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_prime' class='fnname'>is_prime</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h4 id='method.is_prime' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.is_prime' class='fnname'>is_prime</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Check if <code>n</code> is prime, possibly failing if <code>n</code> is larger than
 the upper bound of this Primes instance.</p>
 </div><h4 id='method.primes' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.primes' class='fnname'>primes</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../slow_primes/struct.PrimeIterator.html' title='slow_primes::PrimeIterator'>PrimeIterator</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Iterator over the primes stored in this map.</p>
-</div><h4 id='method.factor' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.factor' class='fnname'>factor</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='type' href='../slow_primes/type.Factors.html' title='slow_primes::Factors'>Factors</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>, <a class='type' href='../slow_primes/type.Factors.html' title='slow_primes::Factors'>Factors</a>)</a>&gt;</code></h4>
+</div><h4 id='method.factor' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.factor' class='fnname'>factor</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='type' href='../slow_primes/type.Factors.html' title='slow_primes::Factors'>Factors</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a class='type' href='../slow_primes/type.Factors.html' title='slow_primes::Factors'>Factors</a>)</a>&gt;</code></h4>
 <div class='docblock'><p>Factorise <code>n</code> into (prime, exponent) pairs.</p>
 
 <p>Returns <code>Err((leftover, partial factorisation))</code> if <code>n</code> cannot
