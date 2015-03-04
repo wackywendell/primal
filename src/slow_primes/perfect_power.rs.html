@@ -184,14 +184,14 @@
         <span class='kw'>return</span> (<span class='ident'>x</span>, <span class='number'>1</span>)
     }
 
-    <span class='kw'>let</span> <span class='ident'>floor_log_2</span> <span class='op'>=</span> <span class='number'>64</span> <span class='op'>-</span> <span class='ident'>x</span>.<span class='ident'>leading_zeros</span>() <span class='op'>-</span> <span class='number'>1</span>;
+    <span class='kw'>let</span> <span class='ident'>floor_log_2</span> <span class='op'>=</span> <span class='number'>64</span> <span class='op'>-</span> <span class='ident'>x</span>.<span class='ident'>leading_zeros</span>() <span class='kw'>as</span> <span class='ident'>u32</span> <span class='op'>-</span> <span class='number'>1</span>;
 
     <span class='kw'>let</span> <span class='ident'>x_</span> <span class='op'>=</span> <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>f64</span>;
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>last</span> <span class='op'>=</span> (<span class='ident'>x</span>, <span class='number'>1</span>);
     <span class='comment'>// TODO: we could be smarter about this: we know all the possible</span>
     <span class='comment'>// primes that can divide the exponent (since we have a list up to</span>
     <span class='comment'>// 251 &gt;= 64), so we really only need to check them.</span>
-    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>expn</span> <span class='op'>=</span> <span class='number'>2</span>;
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>expn</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>2</span>;
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>step</span> <span class='op'>=</span> <span class='number'>1</span>;
     <span class='kw'>while</span> <span class='ident'>expn</span> <span class='op'>&lt;=</span> <span class='ident'>floor_log_2</span> {
         <span class='kw'>let</span> <span class='ident'>factor</span> <span class='op'>=</span> <span class='ident'>x_</span>.<span class='ident'>powf</span>(<span class='number'>1.0</span><span class='op'>/</span><span class='ident'>expn</span> <span class='kw'>as</span> <span class='ident'>f64</span>).<span class='ident'>round</span>() <span class='kw'>as</span> <span class='ident'>u64</span>;
@@ -269,7 +269,7 @@
             <span class='comment'>// include 1 to test p itself.</span>
             <span class='kw'>for</span> (<span class='ident'>q</span>, <span class='ident'>is_prime</span>) <span class='kw'>in</span> <span class='prelude-val'>Some</span>((<span class='number'>1</span>, <span class='boolval'>true</span>)).<span class='ident'>into_iter</span>().<span class='ident'>chain</span>(<span class='ident'>subprimes</span>) {
                 <span class='kw'>let</span> <span class='ident'>pq</span> <span class='op'>=</span> <span class='ident'>p</span> <span class='op'>*</span> <span class='ident'>q</span> <span class='kw'>as</span> <span class='ident'>u64</span>;
-                <span class='kw'>for</span> <span class='ident'>n</span> <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>1</span>, <span class='ident'>MAX</span>.<span class='ident'>log</span>(<span class='ident'>pq</span> <span class='kw'>as</span> <span class='ident'>f64</span>) <span class='kw'>as</span> <span class='ident'>usize</span>) {
+                <span class='kw'>for</span> <span class='ident'>n</span> <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>1</span>, <span class='ident'>MAX</span>.<span class='ident'>log</span>(<span class='ident'>pq</span> <span class='kw'>as</span> <span class='ident'>f64</span>) <span class='kw'>as</span> <span class='ident'>u32</span>) {
                     <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>pq</span>.<span class='ident'>pow</span>(<span class='ident'>n</span>);
 
                     <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> (<span class='ident'>pq</span>, <span class='ident'>n</span> <span class='kw'>as</span> <span class='ident'>u8</span>);
