@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         <a href='../num/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk-v2.png' alt='' width='100'></a>
-        <p class='location'><a href='index.html'>num</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='bigint/index.html' title='A Big integer (signed version: `BigInt`, unsigned version: `BigUint`).'>bigint</a><a class='mod ' href='complex/index.html' title='Complex numbers.'>complex</a><a class='mod ' href='integer/index.html' title='Integer trait and functions.'>integer</a><a class='mod ' href='iter/index.html' title='External iterators for generic mathematics'>iter</a><a class='mod ' href='rational/index.html' title='Rational numbers'>rational</a><a class='mod ' href='traits/index.html' title='Numeric traits for generic mathematics'>traits</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.abs.html' title='Computes the absolute value.'>abs</a><a class='fn ' href='fn.abs_sub.html' title='The positive difference of two numbers.'>abs_sub</a><a class='fn ' href='fn.one.html' title='Returns the multiplicative identity, `1`.'>one</a><a class='fn current' href='fn.pow.html' title='Raises a value to the power of exp, using exponentiation by squaring.'>pow</a><a class='fn ' href='fn.signum.html' title='Returns the sign of the number.'>signum</a><a class='fn ' href='fn.zero.html' title='Returns the additive identity, `0`.'>zero</a></div>
+        <p class='location'><a href='index.html'>num</a></p><script>window.sidebarCurrent = {name: 'pow', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </section>
 
     <nav class="sub">
@@ -43,7 +43,7 @@
     <section id='main' class="content fn">
 <h1 class='fqn'><span class='in-band'>Function <a href='index.html'>num</a>::<wbr><a class='fn' href=''>pow</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-19774' href='../src/num/lib.rs.html#127-140'>[src]</a></span></h1>
+        </span><a id='src-19553' href='../src/num/lib.rs.html#128-145'>[src]</a></span></h1>
 <pre class='rust fn'>pub fn pow&lt;T: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='../num/traits/trait.One.html' title='num::traits::One'>One</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;T, Output=T&gt;&gt;(base: T, exp: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; T</pre><div class='docblock'><p>Raises a value to the power of exp, using exponentiation by squaring.</p>
 
 <h1 id="example" class='section-header'><a
@@ -51,11 +51,13 @@
 fn main() {
     use num;
     
-    assert_eq!(num::pow(2i, 4), 16);
+    assert_eq!(num::pow(2i8, 4), 16);
+    assert_eq!(num::pow(6u8, 3), 216);
 }</span><pre id='rust-example-rendered' class='rust '>
 <span class='kw'>use</span> <span class='ident'>num</span>;
 
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>num</span>::<span class='ident'>pow</span>(<span class='number'>2i</span>, <span class='number'>4</span>), <span class='number'>16</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>num</span>::<span class='ident'>pow</span>(<span class='number'>2i8</span>, <span class='number'>4</span>), <span class='number'>16</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>num</span>::<span class='ident'>pow</span>(<span class='number'>6u8</span>, <span class='number'>3</span>), <span class='number'>216</span>);
 </pre>
 </div></section>
     <section id='search' class="content hidden"></section>
