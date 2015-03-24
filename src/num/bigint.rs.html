@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/num-0.1.16/src/bigint.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/num-0.1.17/src/bigint.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>bigint.rs.html -- source</title>
@@ -5051,7 +5051,7 @@
     <span class='kw'>fn</span> <span class='ident'>gen_biguint</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>bit_size</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>BigUint</span> {
         <span class='kw'>let</span> (<span class='ident'>digits</span>, <span class='ident'>rem</span>) <span class='op'>=</span> <span class='ident'>bit_size</span>.<span class='ident'>div_rem</span>(<span class='kw-2'>&amp;</span><span class='ident'>big_digit</span>::<span class='ident'>BITS</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>digits</span><span class='op'>+</span><span class='number'>1</span>);
-        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>digits</span>) {
+        <span class='kw'>for</span> _ <span class='kw'>in</span> (<span class='number'>0</span> .. <span class='ident'>digits</span>) {
             <span class='ident'>data</span>.<span class='ident'>push</span>(<span class='self'>self</span>.<span class='ident'>gen</span>());
         }
         <span class='kw'>if</span> <span class='ident'>rem</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
@@ -6098,7 +6098,7 @@
     <span class='kw'>fn</span> <span class='ident'>test_factor</span>() {
         <span class='kw'>fn</span> <span class='ident'>factor</span>(<span class='ident'>n</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>BigUint</span> {
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>f</span>: <span class='ident'>BigUint</span> <span class='op'>=</span> <span class='ident'>One</span>::<span class='ident'>one</span>();
-            <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>2</span>, <span class='ident'>n</span> <span class='op'>+</span> <span class='number'>1</span>) {
+            <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> <span class='number'>2</span>..<span class='ident'>n</span> <span class='op'>+</span> <span class='number'>1</span> {
                 <span class='comment'>// FIXME(#5992): assignment operator overloads</span>
                 <span class='comment'>// f *= FromPrimitive::from_usize(i);</span>
                 <span class='kw'>let</span> <span class='ident'>bu</span>: <span class='ident'>BigUint</span> <span class='op'>=</span> <span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='ident'>i</span>).<span class='ident'>unwrap</span>();
@@ -6147,7 +6147,7 @@
     <span class='kw'>fn</span> <span class='ident'>test_rand_range</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>rng</span> <span class='op'>=</span> <span class='ident'>thread_rng</span>();
 
-        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='number'>10</span>) {
+        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>10</span> {
             <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>rng</span>.<span class='ident'>gen_bigint_range</span>(<span class='kw-2'>&amp;</span><span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>236</span>).<span class='ident'>unwrap</span>(),
                                             <span class='kw-2'>&amp;</span><span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>237</span>).<span class='ident'>unwrap</span>()),
                        <span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>236</span>).<span class='ident'>unwrap</span>());
@@ -6155,7 +6155,7 @@
 
         <span class='kw'>let</span> <span class='ident'>l</span> <span class='op'>=</span> <span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>403469000</span> <span class='op'>+</span> <span class='number'>2352</span>).<span class='ident'>unwrap</span>();
         <span class='kw'>let</span> <span class='ident'>u</span> <span class='op'>=</span> <span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>403469000</span> <span class='op'>+</span> <span class='number'>3513</span>).<span class='ident'>unwrap</span>();
-        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='number'>1000</span>) {
+        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>1000</span> {
             <span class='kw'>let</span> <span class='ident'>n</span>: <span class='ident'>BigUint</span> <span class='op'>=</span> <span class='ident'>rng</span>.<span class='ident'>gen_biguint_below</span>(<span class='kw-2'>&amp;</span><span class='ident'>u</span>);
             <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>n</span> <span class='op'>&lt;</span> <span class='ident'>u</span>);
 
@@ -6809,7 +6809,7 @@
     <span class='kw'>fn</span> <span class='ident'>test_rand_range</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>rng</span> <span class='op'>=</span> <span class='ident'>thread_rng</span>();
 
-        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='number'>10</span>) {
+        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>10</span> {
             <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>rng</span>.<span class='ident'>gen_bigint_range</span>(<span class='kw-2'>&amp;</span><span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>236</span>).<span class='ident'>unwrap</span>(),
                                             <span class='kw-2'>&amp;</span><span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>237</span>).<span class='ident'>unwrap</span>()),
                        <span class='ident'>FromPrimitive</span>::<span class='ident'>from_usize</span>(<span class='number'>236</span>).<span class='ident'>unwrap</span>());
@@ -6817,7 +6817,7 @@
 
         <span class='kw'>fn</span> <span class='ident'>check</span>(<span class='ident'>l</span>: <span class='ident'>BigInt</span>, <span class='ident'>u</span>: <span class='ident'>BigInt</span>) {
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>rng</span> <span class='op'>=</span> <span class='ident'>thread_rng</span>();
-            <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='number'>1000</span>) {
+            <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>1000</span> {
                 <span class='kw'>let</span> <span class='ident'>n</span>: <span class='ident'>BigInt</span> <span class='op'>=</span> <span class='ident'>rng</span>.<span class='ident'>gen_bigint_range</span>(<span class='kw-2'>&amp;</span><span class='ident'>l</span>, <span class='kw-2'>&amp;</span><span class='ident'>u</span>);
                 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>n</span> <span class='op'>&gt;=</span> <span class='ident'>l</span>);
                 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>n</span> <span class='op'>&lt;</span> <span class='ident'>u</span>);
@@ -6871,7 +6871,7 @@
     <span class='kw'>fn</span> <span class='ident'>fib</span>(<span class='ident'>n</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>BigUint</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>f0</span>: <span class='ident'>BigUint</span> <span class='op'>=</span> <span class='ident'>Zero</span>::<span class='ident'>zero</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>f1</span>: <span class='ident'>BigUint</span> <span class='op'>=</span> <span class='ident'>One</span>::<span class='ident'>one</span>();
-        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>n</span>) {
+        <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>n</span> {
             <span class='kw'>let</span> <span class='ident'>f2</span> <span class='op'>=</span> <span class='ident'>f0</span> <span class='op'>+</span> <span class='kw-2'>&amp;</span><span class='ident'>f1</span>;
             <span class='ident'>f0</span> <span class='op'>=</span> <span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>f1</span>, <span class='ident'>f2</span>);
         }
@@ -6909,7 +6909,7 @@
         <span class='kw'>let</span> <span class='ident'>n</span> <span class='op'>=</span> { <span class='kw'>let</span> <span class='ident'>one</span> : <span class='ident'>BigUint</span> <span class='op'>=</span> <span class='ident'>One</span>::<span class='ident'>one</span>(); <span class='ident'>one</span> <span class='op'>&lt;&lt;</span> <span class='number'>1000</span> };
         <span class='ident'>b</span>.<span class='ident'>iter</span>(<span class='op'>||</span> {
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='ident'>n</span>.<span class='ident'>clone</span>();
-            <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='number'>10</span>) {
+            <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='number'>10</span> {
                 <span class='ident'>m</span> <span class='op'>=</span> <span class='ident'>m</span> <span class='op'>&gt;&gt;</span> <span class='number'>1</span>;
             }
         })

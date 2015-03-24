@@ -43,26 +43,15 @@
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>num</a>::<wbr><a href='index.html'>traits</a>::<wbr><a class='trait' href=''>CheckedSub</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-15670' href='../../src/num/traits.rs.html#388-399'>[src]</a></span></h1>
+        </span><a id='src-15670' href='../../src/num/traits.rs.html#382-386'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait CheckedSub: <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Sub.html' title='core::ops::Sub'>Sub</a>&lt;Self, Output=Self&gt; {
     fn <a href='#tymethod.checked_sub' class='fnname'>checked_sub</a>(&amp;self, v: &amp;Self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;;
 }</pre><div class='docblock'><p>Performs subtraction that returns <code>None</code> instead of wrapping around on underflow.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.checked_sub' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.checked_sub' class='fnname'>checked_sub</a>(&amp;self, v: &amp;Self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Subtracts two numbers, checking for underflow. If underflow happens, <code>None</code> is returned.</p>
-
-<h1 id="example" class='section-header'><a
-                           href="#example">Example</a></h1><span class='rusttest'>extern crate num;
-fn main() {
-    use num::CheckedSub;
-    assert_eq!((-127i8).checked_sub(&amp;1), Some(-128));
-    assert_eq!((-128i8).checked_sub(&amp;1), None);
-}</span><pre id='rust-example-rendered' class='rust '>
-<span class='kw'>use</span> <span class='ident'>num</span>::<span class='ident'>CheckedSub</span>;
-<span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>-</span><span class='number'>127i8</span>).<span class='ident'>checked_sub</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>), <span class='prelude-val'>Some</span>(<span class='op'>-</span><span class='number'>128</span>));
-<span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>-</span><span class='number'>128i8</span>).<span class='ident'>checked_sub</span>(<span class='kw-2'>&amp;</span><span class='number'>1</span>), <span class='prelude-val'>None</span>);
-</pre>
+        <h3 id='tymethod.checked_sub' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.checked_sub' class='fnname'>checked_sub</a>(&amp;self, v: &amp;Self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Subtracts two numbers, checking for underflow. If underflow happens,
+<code>None</code> is returned.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>

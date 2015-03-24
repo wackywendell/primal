@@ -63,7 +63,7 @@ fn approx_sqrt(number: u64, iterations: usize) -&gt; BigRational {
     let start: Ratio&lt;BigInt&gt; = Ratio::from_integer(FromPrimitive::from_u64(number).unwrap());
     let mut approx = start.clone();
 
-    for _ in range(0, iterations) {
+    for _ in 0..iterations {
         approx = (&amp;approx + (&amp;start / &amp;approx)) /
             Ratio::from_integer(FromPrimitive::from_u64(2).unwrap());
     }
@@ -84,7 +84,7 @@ fn main() {
     <span class='kw'>let</span> <span class='ident'>start</span>: <span class='ident'>Ratio</span><span class='op'>&lt;</span><span class='ident'>BigInt</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>Ratio</span>::<span class='ident'>from_integer</span>(<span class='ident'>FromPrimitive</span>::<span class='ident'>from_u64</span>(<span class='ident'>number</span>).<span class='ident'>unwrap</span>());
     <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>approx</span> <span class='op'>=</span> <span class='ident'>start</span>.<span class='ident'>clone</span>();
 
-    <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>iterations</span>) {
+    <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>iterations</span> {
         <span class='ident'>approx</span> <span class='op'>=</span> (<span class='kw-2'>&amp;</span><span class='ident'>approx</span> <span class='op'>+</span> (<span class='kw-2'>&amp;</span><span class='ident'>start</span> <span class='op'>/</span> <span class='kw-2'>&amp;</span><span class='ident'>approx</span>)) <span class='op'>/</span>
             <span class='ident'>Ratio</span>::<span class='ident'>from_integer</span>(<span class='ident'>FromPrimitive</span>::<span class='ident'>from_u64</span>(<span class='number'>2</span>).<span class='ident'>unwrap</span>());
     }

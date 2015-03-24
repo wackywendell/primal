@@ -43,7 +43,7 @@
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>num</a>::<wbr><a href='index.html'>traits</a>::<wbr><a class='trait' href=''>CheckedMul</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-16079' href='../../src/num/traits.rs.html#423-435'>[src]</a></span></h1>
+        </span><a id='src-16079' href='../../src/num/traits.rs.html#410-414'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait CheckedMul: <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;Self, Output=Self&gt; {
     fn <a href='#tymethod.checked_mul' class='fnname'>checked_mul</a>(&amp;self, v: &amp;Self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;;
 }</pre><div class='docblock'><p>Performs multiplication that returns <code>None</code> instead of wrapping around on underflow or
@@ -51,20 +51,8 @@ overflow.</p>
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.checked_mul' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.checked_mul' class='fnname'>checked_mul</a>(&amp;self, v: &amp;Self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Multiplies two numbers, checking for underflow or overflow. If underflow or overflow
-happens, <code>None</code> is returned.</p>
-
-<h1 id="example" class='section-header'><a
-                           href="#example">Example</a></h1><span class='rusttest'>extern crate num;
-fn main() {
-    use num::CheckedMul;
-    assert_eq!(5u8.checked_mul(&amp;51), Some(255));
-    assert_eq!(5u8.checked_mul(&amp;52), None);
-}</span><pre id='rust-example-rendered' class='rust '>
-<span class='kw'>use</span> <span class='ident'>num</span>::<span class='ident'>CheckedMul</span>;
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>5u8</span>.<span class='ident'>checked_mul</span>(<span class='kw-2'>&amp;</span><span class='number'>51</span>), <span class='prelude-val'>Some</span>(<span class='number'>255</span>));
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>5u8</span>.<span class='ident'>checked_mul</span>(<span class='kw-2'>&amp;</span><span class='number'>52</span>), <span class='prelude-val'>None</span>);
-</pre>
+        <h3 id='tymethod.checked_mul' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.checked_mul' class='fnname'>checked_mul</a>(&amp;self, v: &amp;Self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;Self&gt;</code></h3><div class='docblock'><p>Multiplies two numbers, checking for underflow or overflow. If underflow
+or overflow happens, <code>None</code> is returned.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
