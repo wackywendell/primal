@@ -245,12 +245,8 @@
 <span id="203">203</span>
 <span id="204">204</span>
 <span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
-<span id="208">208</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>tables</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Float</span>;
 
 <span class='doccomment'>/// Returns estimated bounds for π(*n*), the number of primes less</span>
 <span class='doccomment'>/// than or equal to `n`.</span>
@@ -369,8 +365,6 @@
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>tests</span> {
-    <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>::<span class='ident'>Int</span>;
-
     <span class='kw'>use</span> <span class='ident'>Primes</span>;
     <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>estimate_prime_pi</span>, <span class='ident'>estimate_nth_prime</span>};
 

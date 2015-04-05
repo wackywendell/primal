@@ -189,7 +189,7 @@
 <span class='doccomment'>//! let (_lo, hi) = slow_primes::estimate_nth_prime(10001);</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! // find the primes up to this upper bound</span>
-<span class='doccomment'>//! let sieve = slow_primes::Primes::sieve(hi as uint);</span>
+<span class='doccomment'>//! let sieve = slow_primes::Primes::sieve(hi as usize);</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! // (.nth is zero indexed.)</span>
 <span class='doccomment'>//! match sieve.primes().nth(10001 - 1) {</span>
@@ -207,10 +207,10 @@
 <span class='doccomment'>//! git = &quot;https://github.com/huonw/slow_primes&quot;</span>
 <span class='doccomment'>//! ```</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>collections</span>, <span class='ident'>core</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>collections</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>test</span>, <span class='ident'>feature</span>(<span class='ident'>test</span>, <span class='ident'>step_by</span>))]</span>
 
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='string'>&quot;num&quot;</span> <span class='kw'>as</span> <span class='ident'>num_</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>num</span> <span class='kw'>as</span> <span class='ident'>num_</span>;
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
 

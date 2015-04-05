@@ -84,7 +84,7 @@ and use deeper mathematics via
 <span class='kw'>let</span> (<span class='ident'>_lo</span>, <span class='ident'>hi</span>) <span class='op'>=</span> <span class='ident'>slow_primes</span>::<span class='ident'>estimate_nth_prime</span>(<span class='number'>10001</span>);
 
 <span class='comment'>// find the primes up to this upper bound</span>
-<span class='kw'>let</span> <span class='ident'>sieve</span> <span class='op'>=</span> <span class='ident'>slow_primes</span>::<span class='ident'>Primes</span>::<span class='ident'>sieve</span>(<span class='ident'>hi</span> <span class='kw'>as</span> <span class='ident'>uint</span>);
+<span class='kw'>let</span> <span class='ident'>sieve</span> <span class='op'>=</span> <span class='ident'>slow_primes</span>::<span class='ident'>Primes</span>::<span class='ident'>sieve</span>(<span class='ident'>hi</span> <span class='kw'>as</span> <span class='ident'>usize</span>);
 
 <span class='comment'>// (.nth is zero indexed.)</span>
 <span class='kw'>match</span> <span class='ident'>sieve</span>.<span class='ident'>primes</span>().<span class='ident'>nth</span>(<span class='number'>10001</span> <span class='op'>-</span> <span class='number'>1</span>) {

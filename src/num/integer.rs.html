@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/num-0.1.19/src/integer.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/num-0.1.22/src/integer.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>integer.rs.html -- source</title>
@@ -549,6 +549,7 @@
 <span id="507">507</span>
 <span id="508">508</span>
 <span id="509">509</span>
+<span id="510">510</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2013-2014 The Rust Project Developers. See the COPYRIGHT</span>
 <span class='comment'>// file at the top-level directory of this distribution and at</span>
@@ -562,27 +563,28 @@
 
 <span class='doccomment'>//! Integer trait and functions.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::{<span class='ident'>Div</span>, <span class='ident'>Rem</span>};
-
 <span class='kw'>use</span> {<span class='ident'>Num</span>, <span class='ident'>Signed</span>};
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Integer</span>: <span class='ident'>Sized</span> <span class='op'>+</span> <span class='ident'>Num</span> <span class='op'>+</span> <span class='ident'>PartialOrd</span>
-                 <span class='op'>+</span> <span class='ident'>Div</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>Output</span> <span class='op'>=</span> <span class='kw'>Self</span><span class='op'>&gt;</span> <span class='op'>+</span> <span class='ident'>Rem</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>Output</span> <span class='op'>=</span> <span class='kw'>Self</span><span class='op'>&gt;</span> {
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Integer</span>
+    : <span class='ident'>Sized</span>
+    <span class='op'>+</span> <span class='ident'>Num</span>
+    <span class='op'>+</span> <span class='ident'>PartialOrd</span> <span class='op'>+</span> <span class='ident'>Ord</span> <span class='op'>+</span> <span class='ident'>Eq</span>
+{
     <span class='doccomment'>/// Floored integer division.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert!(( 8i).div_floor(&amp; 3) ==  2);</span>
-    <span class='doccomment'>/// assert!(( 8i).div_floor(&amp;-3) == -3);</span>
-    <span class='doccomment'>/// assert!((-8i).div_floor(&amp; 3) == -3);</span>
-    <span class='doccomment'>/// assert!((-8i).div_floor(&amp;-3) ==  2);</span>
+    <span class='doccomment'>/// assert!(( 8).div_floor(&amp; 3) ==  2);</span>
+    <span class='doccomment'>/// assert!(( 8).div_floor(&amp;-3) == -3);</span>
+    <span class='doccomment'>/// assert!((-8).div_floor(&amp; 3) == -3);</span>
+    <span class='doccomment'>/// assert!((-8).div_floor(&amp;-3) ==  2);</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// assert!(( 1i).div_floor(&amp; 2) ==  0);</span>
-    <span class='doccomment'>/// assert!(( 1i).div_floor(&amp;-2) == -1);</span>
-    <span class='doccomment'>/// assert!((-1i).div_floor(&amp; 2) == -1);</span>
-    <span class='doccomment'>/// assert!((-1i).div_floor(&amp;-2) ==  0);</span>
+    <span class='doccomment'>/// assert!(( 1).div_floor(&amp; 2) ==  0);</span>
+    <span class='doccomment'>/// assert!(( 1).div_floor(&amp;-2) == -1);</span>
+    <span class='doccomment'>/// assert!((-1).div_floor(&amp; 2) == -1);</span>
+    <span class='doccomment'>/// assert!((-1).div_floor(&amp;-2) ==  0);</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>div_floor</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 
@@ -590,7 +592,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// # let n = 1i; let d = 1i;</span>
+    <span class='doccomment'>/// # let n = 1; let d = 1;</span>
     <span class='doccomment'>/// assert!(n.div_floor(&amp;d) * d + n.mod_floor(&amp;d) == n)</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>///</span>
@@ -598,15 +600,15 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert!(( 8i).mod_floor(&amp; 3) ==  2);</span>
-    <span class='doccomment'>/// assert!(( 8i).mod_floor(&amp;-3) == -1);</span>
-    <span class='doccomment'>/// assert!((-8i).mod_floor(&amp; 3) ==  1);</span>
-    <span class='doccomment'>/// assert!((-8i).mod_floor(&amp;-3) == -2);</span>
+    <span class='doccomment'>/// assert!(( 8).mod_floor(&amp; 3) ==  2);</span>
+    <span class='doccomment'>/// assert!(( 8).mod_floor(&amp;-3) == -1);</span>
+    <span class='doccomment'>/// assert!((-8).mod_floor(&amp; 3) ==  1);</span>
+    <span class='doccomment'>/// assert!((-8).mod_floor(&amp;-3) == -2);</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// assert!(( 1i).mod_floor(&amp; 2) ==  1);</span>
-    <span class='doccomment'>/// assert!(( 1i).mod_floor(&amp;-2) == -1);</span>
-    <span class='doccomment'>/// assert!((-1i).mod_floor(&amp; 2) ==  1);</span>
-    <span class='doccomment'>/// assert!((-1i).mod_floor(&amp;-2) == -1);</span>
+    <span class='doccomment'>/// assert!(( 1).mod_floor(&amp; 2) ==  1);</span>
+    <span class='doccomment'>/// assert!(( 1).mod_floor(&amp;-2) == -1);</span>
+    <span class='doccomment'>/// assert!((-1).mod_floor(&amp; 2) ==  1);</span>
+    <span class='doccomment'>/// assert!((-1).mod_floor(&amp;-2) == -1);</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>mod_floor</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 
@@ -616,8 +618,8 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert_eq!(6i.gcd(&amp;8), 2);</span>
-    <span class='doccomment'>/// assert_eq!(7i.gcd(&amp;3), 1);</span>
+    <span class='doccomment'>/// assert_eq!(6.gcd(&amp;8), 2);</span>
+    <span class='doccomment'>/// assert_eq!(7.gcd(&amp;3), 1);</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>gcd</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 
@@ -627,8 +629,8 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert_eq!(7i.lcm(&amp;3), 21);</span>
-    <span class='doccomment'>/// assert_eq!(2i.lcm(&amp;4), 4);</span>
+    <span class='doccomment'>/// assert_eq!(7.lcm(&amp;3), 21);</span>
+    <span class='doccomment'>/// assert_eq!(2.lcm(&amp;4), 4);</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>lcm</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
 
@@ -642,8 +644,8 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert_eq!(9i.is_multiple_of(&amp;3), true);</span>
-    <span class='doccomment'>/// assert_eq!(3i.is_multiple_of(&amp;9), false);</span>
+    <span class='doccomment'>/// assert_eq!(9.is_multiple_of(&amp;3), true);</span>
+    <span class='doccomment'>/// assert_eq!(3.is_multiple_of(&amp;9), false);</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>is_multiple_of</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
 
@@ -653,8 +655,8 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert_eq!(3i.is_even(), false);</span>
-    <span class='doccomment'>/// assert_eq!(4i.is_even(), true);</span>
+    <span class='doccomment'>/// assert_eq!(3.is_even(), false);</span>
+    <span class='doccomment'>/// assert_eq!(4.is_even(), true);</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>is_even</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
 
@@ -664,8 +666,8 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert_eq!(3i.is_odd(), true);</span>
-    <span class='doccomment'>/// assert_eq!(4i.is_odd(), false);</span>
+    <span class='doccomment'>/// assert_eq!(3.is_odd(), true);</span>
+    <span class='doccomment'>/// assert_eq!(4.is_odd(), false);</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>is_odd</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
 
@@ -676,15 +678,15 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert_eq!(( 8i).div_rem( &amp;3), ( 2,  2));</span>
-    <span class='doccomment'>/// assert_eq!(( 8i).div_rem(&amp;-3), (-2,  2));</span>
-    <span class='doccomment'>/// assert_eq!((-8i).div_rem( &amp;3), (-2, -2));</span>
-    <span class='doccomment'>/// assert_eq!((-8i).div_rem(&amp;-3), ( 2, -2));</span>
+    <span class='doccomment'>/// assert_eq!(( 8).div_rem( &amp;3), ( 2,  2));</span>
+    <span class='doccomment'>/// assert_eq!(( 8).div_rem(&amp;-3), (-2,  2));</span>
+    <span class='doccomment'>/// assert_eq!((-8).div_rem( &amp;3), (-2, -2));</span>
+    <span class='doccomment'>/// assert_eq!((-8).div_rem(&amp;-3), ( 2, -2));</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// assert_eq!(( 1i).div_rem( &amp;2), ( 0,  1));</span>
-    <span class='doccomment'>/// assert_eq!(( 1i).div_rem(&amp;-2), ( 0,  1));</span>
-    <span class='doccomment'>/// assert_eq!((-1i).div_rem( &amp;2), ( 0, -1));</span>
-    <span class='doccomment'>/// assert_eq!((-1i).div_rem(&amp;-2), ( 0, -1));</span>
+    <span class='doccomment'>/// assert_eq!(( 1).div_rem( &amp;2), ( 0,  1));</span>
+    <span class='doccomment'>/// assert_eq!(( 1).div_rem(&amp;-2), ( 0,  1));</span>
+    <span class='doccomment'>/// assert_eq!((-1).div_rem( &amp;2), ( 0, -1));</span>
+    <span class='doccomment'>/// assert_eq!((-1).div_rem(&amp;-2), ( 0, -1));</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>div_rem</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> (<span class='kw'>Self</span>, <span class='kw'>Self</span>);
@@ -696,15 +698,15 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='doccomment'>/// # use num::Integer;</span>
-    <span class='doccomment'>/// assert_eq!(( 8i).div_mod_floor( &amp;3), ( 2,  2));</span>
-    <span class='doccomment'>/// assert_eq!(( 8i).div_mod_floor(&amp;-3), (-3, -1));</span>
-    <span class='doccomment'>/// assert_eq!((-8i).div_mod_floor( &amp;3), (-3,  1));</span>
-    <span class='doccomment'>/// assert_eq!((-8i).div_mod_floor(&amp;-3), ( 2, -2));</span>
+    <span class='doccomment'>/// assert_eq!(( 8).div_mod_floor( &amp;3), ( 2,  2));</span>
+    <span class='doccomment'>/// assert_eq!(( 8).div_mod_floor(&amp;-3), (-3, -1));</span>
+    <span class='doccomment'>/// assert_eq!((-8).div_mod_floor( &amp;3), (-3,  1));</span>
+    <span class='doccomment'>/// assert_eq!((-8).div_mod_floor(&amp;-3), ( 2, -2));</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// assert_eq!(( 1i).div_mod_floor( &amp;2), ( 0,  1));</span>
-    <span class='doccomment'>/// assert_eq!(( 1i).div_mod_floor(&amp;-2), (-1, -1));</span>
-    <span class='doccomment'>/// assert_eq!((-1i).div_mod_floor( &amp;2), (-1,  1));</span>
-    <span class='doccomment'>/// assert_eq!((-1i).div_mod_floor(&amp;-2), ( 0, -1));</span>
+    <span class='doccomment'>/// assert_eq!(( 1).div_mod_floor( &amp;2), ( 0,  1));</span>
+    <span class='doccomment'>/// assert_eq!(( 1).div_mod_floor(&amp;-2), (-1, -1));</span>
+    <span class='doccomment'>/// assert_eq!((-1).div_mod_floor( &amp;2), (-1,  1));</span>
+    <span class='doccomment'>/// assert_eq!((-1).div_mod_floor(&amp;-2), ( 0, -1));</span>
     <span class='doccomment'>/// ~~~</span>
     <span class='kw'>fn</span> <span class='ident'>div_mod_floor</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>other</span>: <span class='kw-2'>&amp;</span><span class='kw'>Self</span>) <span class='op'>-&gt;</span> (<span class='kw'>Self</span>, <span class='kw'>Self</span>) {
         (<span class='self'>self</span>.<span class='ident'>div_floor</span>(<span class='ident'>other</span>), <span class='self'>self</span>.<span class='ident'>mod_floor</span>(<span class='ident'>other</span>))
