@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `primal` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, primal">
+
+    <title>primal - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'primal', ty: 'mod', relpath: '../'};</script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>primal</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-0' class='srclink' href='../src/primal/lib.rs.html#1-108' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p><code>primal</code> puts raw power into prime numbers.</p>
+
+<p>This crates includes</p>
+
+<ul>
+<li>optimised prime sieves</li>
+<li>checking for primality</li>
+<li>enumerating primes</li>
+<li>factorising numbers</li>
+<li>estimating upper and lower bounds for π(<em>n</em>) (the number of primes
+below <em>n</em>) and <em>p<sub>k</sub></em> (the <i>k</i>th prime)</li>
+</ul>
+
+<p>This uses a state-of-the-art cache-friendly Sieve of Eratosthenes
+to enumerate the primes up to some fixed bound (in a memory
+efficient manner), and then allows this cached information to be
+used for things like enumerating and counting primes.</p>
+
+<p><code>primal</code> takes around 2.8 seconds and less than 3MB of RAM to
+count the exact number of primes below 10<sup>10</sup> (455052511)
+on the author&#39;s laptop (i7-3517U).</p>
+
+<p><a href="http://github.com/huonw/primal"><em>Source</em></a></p>
+
+<h1 id="using-this-library" class='section-header'><a
+                           href="#using-this-library">Using this library</a></h1>
+<p>Just add the following to your <a href="http://crates.io/"><code>Cargo.toml</code></a>:</p>
+
+<pre><code class="language-toml">[dependencies]
+primal = &quot;0.2&quot;
+</code></pre>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1>
+<p>Let&#39;s find the 10001st prime. The easiest way is to enumerate the
+primes, and find the 10001st:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='comment'>// (.nth is zero indexed.)</span>
+<span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='ident'>primal</span>::<span class='ident'>Primes</span>::<span class='ident'>all</span>().<span class='ident'>nth</span>(<span class='number'>10001</span> <span class='op'>-</span> <span class='number'>1</span>).<span class='ident'>unwrap</span>();
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The 10001st prime is {}&quot;</span>, <span class='ident'>p</span>); <span class='comment'>// 104743</span>
+</pre>
+
+<p><code>Primes</code> is flexible at the cost of performance, so if we wish to
+optimise we could instead explicitly sieve and then find the
+appropriate prime.  Unfortunately, <code>Sieve</code> requires a limit to
+know how far to sieve: we need some way to find an upper bound to
+be guaranteed to be at least as large the 10001st prime. We could
+guess that, say, 10<sup>8</sup> will be large enough and use that,
+but that&#39;s probably a huge overestimate. We could also try
+filtering with exponentially larger upper bounds until we find one
+that works (e.g. doubling each time), or... we could just take a
+shortcut and use deeper mathematics via
+<a href="fn.estimate_nth_prime.html"><code>estimate_nth_prime</code></a>.</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='comment'>// find our upper bound</span>
+<span class='kw'>let</span> (<span class='ident'>_lo</span>, <span class='ident'>hi</span>) <span class='op'>=</span> <span class='ident'>primal</span>::<span class='ident'>estimate_nth_prime</span>(<span class='number'>10001</span>);
+
+<span class='comment'>// find the primes up to this upper bound</span>
+<span class='kw'>let</span> <span class='ident'>sieve</span> <span class='op'>=</span> <span class='ident'>primal</span>::<span class='ident'>Sieve</span>::<span class='ident'>new</span>(<span class='ident'>hi</span> <span class='kw'>as</span> <span class='ident'>usize</span>);
+
+<span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='ident'>sieve</span>.<span class='ident'>primes_from</span>(<span class='number'>0</span>).<span class='ident'>nth</span>(<span class='number'>10001</span> <span class='op'>-</span> <span class='number'>1</span>).<span class='ident'>unwrap</span>();
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The 10001st prime is {}&quot;</span>, <span class='ident'>p</span>); <span class='comment'>// 104743</span>
+</pre>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.Primes.html'
+                               title='primal::Primes'>Primes</a></td>
+                        <td class='docblock short'>
+                             <p>An iterator over all primes.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.Sieve.html'
+                               title='primal::Sieve'>Sieve</a></td>
+                        <td class='docblock short'>
+                             <p>A heavily optimised prime sieve.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.StreamingSieve.html'
+                               title='primal::StreamingSieve'>StreamingSieve</a></td>
+                        <td class='docblock short'>
+                             <p>A heavily optimised prime sieve.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.as_perfect_power.html'
+                               title='primal::as_perfect_power'>as_perfect_power</a></td>
+                        <td class='docblock short'>
+                             <p>Returns integers <code>(y, k)</code> such that <code>x = y^k</code> with <code>k</code> maximised
+(other than for <code>x = 0, 1</code>, in which case <code>y = x</code>, <code>k = 1</code>).</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.as_prime_power.html'
+                               title='primal::as_prime_power'>as_prime_power</a></td>
+                        <td class='docblock short'>
+                             <p>Return <code>Some((p, k))</code> if <code>x = p^k</code> for some prime <code>p</code> and <code>k &gt;= 1</code>
+(that is, including when <code>x</code> is itself a prime).</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.estimate_nth_prime.html'
+                               title='primal::estimate_nth_prime'>estimate_nth_prime</a></td>
+                        <td class='docblock short'>
+                             <p>Gives estimated bounds for <em>p<sub>n</sub></em>, the <code>n</code>th prime number,
+1-indexed (i.e. <em>p<sub>1</sub></em> = 2, <em>p<sub>2</sub></em> = 3).</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.estimate_prime_pi.html'
+                               title='primal::estimate_prime_pi'>estimate_prime_pi</a></td>
+                        <td class='docblock short'>
+                             <p>Returns estimated bounds for π(<em>n</em>), the number of primes less
+than or equal to <code>n</code>.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='fn' href='fn.is_prime.html'
+                               title='primal::is_prime'>is_prime</a></td>
+                        <td class='docblock short'>
+                             <p>Test if <code>n</code> is prime, using the deterministic version of the
+Miller-Rabin test.</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "primal";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>
