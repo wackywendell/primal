@@ -249,7 +249,7 @@ in the sequence, such as the lower bound.</p>
 <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;the prime is {}&quot;</span>, <span class='ident'>p</span>);
 </pre>
 
-<p>This takes around 3.5 seconds to spit out the same number. Slower
+<p>This takes around 3.5 seconds to print the same number. Slower
 than the iterator!</p>
 
 <p>I was just using this silly condition as an example of something
@@ -269,7 +269,6 @@ to do primality tests, even of very large numbers.</p>
     <span class='kw'>if</span> <span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='ident'>p</span>) { <span class='kw'>break</span> }
 }
 <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;the prime is {}&quot;</span>, <span class='ident'>p</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>p</span>, <span class='number'>3_221_225_473</span>);
 </pre>
 
 <p>This takes 6 <em>micro</em>seconds: more than 500,000&times;
