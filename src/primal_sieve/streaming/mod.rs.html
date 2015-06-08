@@ -454,7 +454,7 @@
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// ```rust</span>
 <span class='doccomment'>/// # extern crate primal;</span>
-<span class='doccomment'>/// let count = primal::StreamingSieve::count_upto(123456);</span>
+<span class='doccomment'>/// let count = primal::StreamingSieve::prime_pi(123456);</span>
 <span class='doccomment'>/// println!(&quot;𝜋(123456) = {}&quot;, count);</span>
 <span class='doccomment'>/// ```</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
@@ -522,14 +522,14 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```rust</span>
     <span class='doccomment'>/// # extern crate primal;</span>
-    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::count_upto(10), 4);</span>
+    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::prime_pi(10), 4);</span>
     <span class='doccomment'>/// // the endpoint is included</span>
-    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::count_upto(11), 5);</span>
+    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::prime_pi(11), 5);</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::count_upto(100), 25);</span>
-    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::count_upto(1000), 168);</span>
+    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::prime_pi(100), 25);</span>
+    <span class='doccomment'>/// assert_eq!(primal::StreamingSieve::prime_pi(1000), 168);</span>
     <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>count_upto</span>(<span class='ident'>n</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>prime_pi</span>(<span class='ident'>n</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
         <span class='kw'>match</span> <span class='ident'>n</span> {
             <span class='number'>0</span>...<span class='number'>1</span> <span class='op'>=&gt;</span> <span class='number'>0</span>,
             <span class='number'>2</span> <span class='op'>=&gt;</span> <span class='number'>1</span>,
@@ -564,7 +564,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// `n` must be larger than 0 and less than the total number of</span>
     <span class='doccomment'>/// primes in this sieve (that is,</span>
-    <span class='doccomment'>/// `self.count_upto(self.upper_bound())`).</span>
+    <span class='doccomment'>/// `self.prime_pi(self.upper_bound())`).</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// # Example</span>
     <span class='doccomment'>///</span>
@@ -751,12 +751,12 @@
         }
     }
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>count_upto</span>() {
+    <span class='kw'>fn</span> <span class='ident'>prime_pi</span>() {
         <span class='kw'>let</span> <span class='ident'>limit</span> <span class='op'>=</span> <span class='number'>2_000_000</span>;
         <span class='kw'>let</span> <span class='ident'>real</span> <span class='op'>=</span> <span class='ident'>Primes</span>::<span class='ident'>sieve</span>(<span class='ident'>limit</span>);
 
         <span class='kw'>for</span> <span class='ident'>i</span> <span class='kw'>in</span> (<span class='number'>0</span>..<span class='number'>20</span>).<span class='ident'>chain</span>((<span class='number'>0</span>..<span class='number'>100</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>n</span><span class='op'>|</span> <span class='ident'>n</span> <span class='op'>*</span> <span class='number'>19998</span> <span class='op'>+</span> <span class='number'>1</span>)) {
-            <span class='kw'>let</span> <span class='ident'>val</span> <span class='op'>=</span> <span class='ident'>StreamingSieve</span>::<span class='ident'>count_upto</span>(<span class='ident'>i</span>);
+            <span class='kw'>let</span> <span class='ident'>val</span> <span class='op'>=</span> <span class='ident'>StreamingSieve</span>::<span class='ident'>prime_pi</span>(<span class='ident'>i</span>);
             <span class='kw'>let</span> <span class='ident'>true_</span> <span class='op'>=</span> <span class='ident'>real</span>.<span class='ident'>primes</span>().<span class='ident'>take_while</span>(<span class='op'>|</span><span class='ident'>p</span><span class='op'>|</span> <span class='op'>*</span><span class='ident'>p</span> <span class='op'>&lt;=</span> <span class='ident'>i</span>).<span class='ident'>count</span>();
             <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>val</span> <span class='op'>==</span> <span class='ident'>true_</span>, <span class='string'>&quot;failed for {}, true {}, computed {}&quot;</span>,
                     <span class='ident'>i</span>, <span class='ident'>true_</span>, <span class='ident'>val</span>)
