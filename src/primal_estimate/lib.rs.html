@@ -251,6 +251,30 @@
 <span id="209">209</span>
 <span id="210">210</span>
 <span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Estimate upper and lower bounds for the *n*-th prime, and π(*n*),</span>
 <span class='doccomment'>//! the number of primes less than or equal to *n*.</span>
@@ -276,6 +300,18 @@
 <span class='doccomment'>/// 1998.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// [pdf]: http://www.unilim.fr/laco/theses/1998/T1998_01.html</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```rust</span>
+<span class='doccomment'>/// # extern crate primal;</span>
+<span class='doccomment'>/// // the number of primes below 1e9</span>
+<span class='doccomment'>/// let count_billion = 50_847_534;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let (low, high) = primal::estimate_prime_pi(1_000_000_000);</span>
+<span class='doccomment'>/// // check the bounds are satisfied</span>
+<span class='doccomment'>/// assert!(low &lt;= count_billion &amp;&amp; count_billion &lt;= high);</span>
+<span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>prime_pi</span>(<span class='ident'>n</span>: <span class='ident'>u64</span>) <span class='op'>-&gt;</span> (<span class='ident'>u64</span>, <span class='ident'>u64</span>) {
     <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>&lt;</span> <span class='ident'>tables</span>::<span class='ident'>SMALL_PRIME_PI</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>u64</span> {
         <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='ident'>tables</span>::<span class='ident'>SMALL_PRIME_PI</span>[<span class='ident'>n</span> <span class='kw'>as</span> <span class='ident'>usize</span>] <span class='kw'>as</span> <span class='ident'>u64</span>;
@@ -335,6 +371,18 @@
 <span class='doccomment'>/// de nombres premiers.&quot;][pdf] PhD diss., Université de Limoges, 1998.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// [pdf]: http://www.unilim.fr/laco/theses/1998/T1998_01.html</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```rust</span>
+<span class='doccomment'>/// # extern crate primal;</span>
+<span class='doccomment'>/// // the 1e9-th prime</span>
+<span class='doccomment'>/// let billionth = 22_801_763_489;</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// let (low, high) = primal::estimate_nth_prime(1_000_000_000);</span>
+<span class='doccomment'>/// // check the bounds are satisfied</span>
+<span class='doccomment'>/// assert!(low &lt;= billionth &amp;&amp; billionth &lt;= high);</span>
+<span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>nth_prime</span>(<span class='ident'>n</span>: <span class='ident'>u64</span>) <span class='op'>-&gt;</span> (<span class='ident'>u64</span>, <span class='ident'>u64</span>) {
     <span class='kw'>if</span> <span class='ident'>n</span> <span class='op'>==</span> <span class='number'>0</span> {
         (<span class='number'>0</span>, <span class='number'>0</span>)

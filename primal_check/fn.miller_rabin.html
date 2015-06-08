@@ -45,13 +45,26 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-255' class='srclink' href='../src/primal_check/is_prime.rs.html#25-72' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-1148' class='srclink' href='../src/primal_check/is_prime.rs.html#102-149' title='goto source code'>[src]</a></span></h1>
 <pre class='rust fn'>pub fn miller_rabin(n: <a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></pre><div class='docblock'><p>Test if <code>n</code> is prime, using the deterministic version of the
 Miller-Rabin test.</p>
 
 <p>Doing a lot of primality tests with numbers strictly below some
 upper bound will be faster using the <code>is_prime</code> method of a
-<code>Primes</code> instance.</p>
+<code>Sieve</code> instance.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>1</span>), <span class='boolval'>false</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>2</span>), <span class='boolval'>true</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>3</span>), <span class='boolval'>true</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>4</span>), <span class='boolval'>false</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>5</span>), <span class='boolval'>true</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>22_801_763_487</span>), <span class='boolval'>false</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>22_801_763_489</span>), <span class='boolval'>true</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>is_prime</span>(<span class='number'>22_801_763_491</span>), <span class='boolval'>false</span>);
+</pre>
 </div></section>
     <section id='search' class="content hidden"></section>
 

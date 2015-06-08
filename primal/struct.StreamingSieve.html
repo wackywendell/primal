@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-860' class='srclink' href='../primal_sieve/streaming/struct.StreamingSieve.html?gotosrc=860' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-855' class='srclink' href='../primal_sieve/streaming/struct.StreamingSieve.html?gotosrc=855' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct StreamingSieve {
     // some fields omitted
 }</pre><div class='docblock'><p>A heavily optimised prime sieve.</p>
@@ -72,6 +72,30 @@ one-off calls, or simple linear iteration.</p>
 <div class='docblock'><p>Count the number of primes upto and including <code>n</code>, that is, 𝜋,
 the <a href="https://en.wikipedia.org/wiki/Prime-counting_function">prime counting
 function</a>.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>StreamingSieve</span>::<span class='ident'>count_upto</span>(<span class='number'>10</span>), <span class='number'>4</span>);
+<span class='comment'>// the endpoint is included</span>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>StreamingSieve</span>::<span class='ident'>count_upto</span>(<span class='number'>11</span>), <span class='number'>5</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>StreamingSieve</span>::<span class='ident'>count_upto</span>(<span class='number'>100</span>), <span class='number'>25</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>StreamingSieve</span>::<span class='ident'>count_upto</span>(<span class='number'>1000</span>), <span class='number'>168</span>);
+</pre>
+</div><h4 id='method.nth_prime' class='method'><code>fn <a href='#method.nth_prime' class='fnname'>nth_prime</a>(n: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<div class='docblock'><p>Compute <em>p<sub>n</sub></em>, the <code>n</code> prime number, 1-indexed
+(i.e. <em>p<sub>1</sub></em> = 2, <em>p<sub>2</sub></em> = 3).</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p><code>n</code> must be larger than 0 and less than the total number of
+primes in this sieve (that is,
+<code>self.count_upto(self.upper_bound())</code>).</p>
+
+<h1 id="example" class='section-header'><a
+                           href="#example">Example</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>StreamingSieve</span>::<span class='ident'>nth_prime</span>(<span class='number'>1_000</span>), <span class='number'>7919</span>);
+</pre>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../primal/struct.StreamingSieve.html' title='primal::StreamingSieve'>StreamingSieve</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>

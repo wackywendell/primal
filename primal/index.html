@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/primal/lib.rs.html#1-108' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/primal/lib.rs.html#1-162' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p><code>primal</code> puts raw power into prime numbers.</p>
 
 <p>This crates includes</p>
@@ -66,7 +66,7 @@ used for things like enumerating and counting primes.</p>
 
 <p><code>primal</code> takes around 2.8 seconds and less than 3MB of RAM to
 count the exact number of primes below 10<sup>10</sup> (455052511)
-on the author&#39;s laptop (i7-3517U).</p>
+on my laptop (i7-3517U).</p>
 
 <p><a href="http://github.com/huonw/primal"><em>Source</em></a></p>
 
@@ -78,8 +78,8 @@ on the author&#39;s laptop (i7-3517U).</p>
 primal = &quot;0.2&quot;
 </code></pre>
 
-<h1 id="example" class='section-header'><a
-                           href="#example">Example</a></h1>
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1>
 <p>Let&#39;s find the 10001st prime. The easiest way is to enumerate the
 primes, and find the 10001st:</p>
 <pre id='rust-example-rendered' class='rust '>
@@ -88,27 +88,80 @@ primes, and find the 10001st:</p>
 <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The 10001st prime is {}&quot;</span>, <span class='ident'>p</span>); <span class='comment'>// 104743</span>
 </pre>
 
-<p><code>Primes</code> is flexible at the cost of performance, so if we wish to
-optimise we could instead explicitly sieve and then find the
-appropriate prime.  Unfortunately, <code>Sieve</code> requires a limit to
-know how far to sieve: we need some way to find an upper bound to
-be guaranteed to be at least as large the 10001st prime. We could
-guess that, say, 10<sup>8</sup> will be large enough and use that,
-but that&#39;s probably a huge overestimate. We could also try
-filtering with exponentially larger upper bounds until we find one
-that works (e.g. doubling each time), or... we could just take a
-shortcut and use deeper mathematics via
+<p>This takes around 400 microseconds on my computer, which seems
+nice and quick, but, <code>Primes</code> is flexible at the cost of
+performance: we can make it faster. The <code>StreamingSieve</code> type
+offers a specialised <code>nth_prime</code> function:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='ident'>primal</span>::<span class='ident'>StreamingSieve</span>::<span class='ident'>nth_prime</span>(<span class='number'>10001</span>);
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The 10001st prime is {}&quot;</span>, <span class='ident'>p</span>); <span class='comment'>// 104743</span>
+</pre>
+
+<p>This runs in only 10 microseconds! <code>StreamingSieve</code> is extremely
+efficient and uses very little memory. It is the best way to solve
+this task with <code>primal</code>.</p>
+
+<p>Since that was so easy, let&#39;s now make the problem bigger and
+harder: find the sum of the 100,000th, 200,000th, 300,000th, ...,
+10,000,000th primes (100 in total).</p>
+
+<p>We could call <code>StreamingSieve::nth_prime</code> repeatedly:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='comment'>// the primes we want to find</span>
+<span class='kw'>let</span> <span class='ident'>ns</span> <span class='op'>=</span> (<span class='number'>1</span>..<span class='number'>100</span> <span class='op'>+</span> <span class='number'>1</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>x</span> <span class='op'>*</span> <span class='number'>100_000</span>).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
+
+<span class='comment'>// search and sum them up</span>
+<span class='kw'>let</span> <span class='ident'>sum</span> <span class='op'>=</span> <span class='ident'>ns</span>.<span class='ident'>iter</span>()
+            .<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>n</span><span class='op'>|</span> <span class='ident'>primal</span>::<span class='ident'>StreamingSieve</span>::<span class='ident'>nth_prime</span>(<span class='op'>*</span><span class='ident'>n</span>))
+            .<span class='ident'>fold</span>(<span class='number'>0</span>, <span class='op'>|</span><span class='ident'>a</span>, <span class='ident'>b</span><span class='op'>|</span> <span class='ident'>a</span> <span class='op'>+</span> <span class='ident'>b</span>);
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;the sum is {}&quot;</span>, <span class='ident'>sum</span>);
+</pre>
+
+<p>This takes around 1.6s seconds to print <code>the sum is 8795091674</code>;
+not so speedy. Each call to <code>nth_prime</code> is individually fast (400
+microseconds for 100,000 to 40 milliseconds for 10,000,000) but
+they add up to something bad. Every one is starting from the start
+and redoing work that previous calls have done... wouldn&#39;t it be
+nice if we could just do the computation for 10,000,000 and reuse
+that for the smaller ones?</p>
+
+<p>The <code>Sieve</code> type is a wrapper around <code>StreamingSieve</code> that
+caches information, allowing repeated queries to be answered
+efficiently.</p>
+
+<p>There&#39;s one hitch: <code>Sieve</code> requires a limit to know how far to
+sieve: we need some way to find an upper bound to be guaranteed to
+be at least as large as all our primes. We could guess that, say,
+10<sup>10</sup> will be large enough and use that, but that&#39;s a
+huge overestimate (spoilers: the 10,000,000th prime is around
+2&times;10<sup>8</sup>). We could also try filtering with
+exponentially larger upper bounds until we find one that works
+(e.g. doubling each time), or, we could just take a shortcut and
+use deeper mathematics via
 <a href="fn.estimate_nth_prime.html"><code>estimate_nth_prime</code></a>.</p>
 <pre id='rust-example-rendered' class='rust '>
+<span class='comment'>// the primes we want to find</span>
+<span class='kw'>let</span> <span class='ident'>ns</span> <span class='op'>=</span> (<span class='number'>1</span>..<span class='number'>100</span> <span class='op'>+</span> <span class='number'>1</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> <span class='ident'>x</span> <span class='op'>*</span> <span class='number'>100_000</span>).<span class='ident'>collect</span>::<span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;&gt;</span>();
+
 <span class='comment'>// find our upper bound</span>
-<span class='kw'>let</span> (<span class='ident'>_lo</span>, <span class='ident'>hi</span>) <span class='op'>=</span> <span class='ident'>primal</span>::<span class='ident'>estimate_nth_prime</span>(<span class='number'>10001</span>);
+<span class='kw'>let</span> (<span class='ident'>_lo</span>, <span class='ident'>hi</span>) <span class='op'>=</span> <span class='ident'>primal</span>::<span class='ident'>estimate_nth_prime</span>(<span class='number'>10_000_000</span>);
 
 <span class='comment'>// find the primes up to this upper bound</span>
 <span class='kw'>let</span> <span class='ident'>sieve</span> <span class='op'>=</span> <span class='ident'>primal</span>::<span class='ident'>Sieve</span>::<span class='ident'>new</span>(<span class='ident'>hi</span> <span class='kw'>as</span> <span class='ident'>usize</span>);
 
-<span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='ident'>sieve</span>.<span class='ident'>primes_from</span>(<span class='number'>0</span>).<span class='ident'>nth</span>(<span class='number'>10001</span> <span class='op'>-</span> <span class='number'>1</span>).<span class='ident'>unwrap</span>();
-<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;The 10001st prime is {}&quot;</span>, <span class='ident'>p</span>); <span class='comment'>// 104743</span>
+<span class='comment'>// now we can efficiently sum them up</span>
+<span class='kw'>let</span> <span class='ident'>sum</span> <span class='op'>=</span> <span class='ident'>ns</span>.<span class='ident'>iter</span>()
+            .<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>n</span><span class='op'>|</span> <span class='ident'>sieve</span>.<span class='ident'>nth_prime</span>(<span class='op'>*</span><span class='ident'>n</span>))
+            .<span class='ident'>fold</span>(<span class='number'>0</span>, <span class='op'>|</span><span class='ident'>a</span>, <span class='ident'>b</span><span class='op'>|</span> <span class='ident'>a</span> <span class='op'>+</span> <span class='ident'>b</span>);
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;the sum is {}&quot;</span>, <span class='ident'>sum</span>);
 </pre>
+
+<p>This takes around 40 milliseconds, and gives the same output: much
+better!</p>
+
+<p>(By the way, the version using 10<sup>10</sup> as the bound
+instead of the more accurate estimate still only takes ~3
+seconds.)</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr class=' module-item'>
@@ -125,6 +178,15 @@ shortcut and use deeper mathematics via
                                title='primal::Sieve'>Sieve</a></td>
                         <td class='docblock short'>
                              <p>A heavily optimised prime sieve.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.SievePrimes.html'
+                               title='primal::SievePrimes'>SievePrimes</a></td>
+                        <td class='docblock short'>
+                             <p>An iterator over the primes stored in a <code>Sieve</code> instance.</p>
 
                         </td>
                     </tr>

@@ -209,6 +209,15 @@
 <span id="167">167</span>
 <span id="168">168</span>
 <span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>wheel</span>;
 <span class='kw'>use</span> <span class='ident'>streaming</span>::{<span class='self'>self</span>, <span class='ident'>StreamingSieve</span>};
@@ -261,6 +270,16 @@
 
 <span class='kw'>impl</span> <span class='ident'>Primes</span> {
     <span class='doccomment'>/// The sequence `2, 3, 5, 7, 11, ...`.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// # extern crate primal;</span>
+    <span class='doccomment'>/// // print the first 20 primes</span>
+    <span class='doccomment'>/// for p in primal::Primes::all().take(20) {</span>
+    <span class='doccomment'>///     println!(&quot;{}&quot;, p);</span>
+    <span class='doccomment'>/// }</span>
+    <span class='doccomment'>/// ```</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>all</span>() <span class='op'>-&gt;</span> <span class='ident'>Primes</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>streaming</span> <span class='op'>=</span> <span class='ident'>StreamingSieve</span>::<span class='ident'>new</span>(<span class='ident'>streaming</span>::<span class='ident'>SEG_LEN</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>iter</span> <span class='op'>=</span> {
@@ -275,7 +294,7 @@
         <span class='ident'>Primes</span> {
             <span class='ident'>early</span>: <span class='ident'>Early</span>::<span class='ident'>Two</span>,
             <span class='ident'>base</span>: <span class='number'>0</span>,
-            <span class='ident'>current</span>: <span class='op'>!</span><span class='ident'>iter</span>.<span class='ident'>next</span>().<span class='ident'>unwrap</span>(),
+            <span class='ident'>current</span>: <span class='ident'>iter</span>.<span class='ident'>next</span>().<span class='ident'>unwrap</span>(),
             <span class='ident'>elems</span>: <span class='ident'>iter</span>,
             <span class='ident'>streaming</span>: <span class='ident'>streaming</span>,
             <span class='ident'>queued</span>: <span class='ident'>VecDeque</span>::<span class='ident'>new</span>(),
@@ -307,7 +326,6 @@
         <span class='lifetime'>&#39;find_c</span>: <span class='kw'>while</span> <span class='ident'>c</span> <span class='op'>==</span> <span class='number'>0</span> {
             <span class='kw'>for</span> <span class='ident'>next</span> <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>elems</span> {
                 <span class='self'>self</span>.<span class='ident'>base</span> <span class='op'>+=</span> <span class='ident'>ITER_BASE_STEP</span>;
-                <span class='kw'>let</span> <span class='ident'>next</span> <span class='op'>=</span> <span class='op'>!</span><span class='ident'>next</span>;
                 <span class='kw'>if</span> <span class='ident'>next</span> <span class='op'>!=</span> <span class='number'>0</span> {
                     <span class='ident'>c</span> <span class='op'>=</span> <span class='ident'>next</span>;
                     <span class='kw'>break</span> <span class='lifetime'>&#39;find_c</span>

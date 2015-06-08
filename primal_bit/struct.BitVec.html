@@ -45,7 +45,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-18' class='srclink' href='../src/primal_bit/lib.rs.html#25-30' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-21' class='srclink' href='../src/primal_bit/lib.rs.html#27-32' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct BitVec {
     // some fields omitted
 }</pre><div class='docblock'><p>The bitvector type.</p>
@@ -60,7 +60,12 @@
 </div><h4 id='method.as_bytes_mut' class='method'><code>fn <a href='#method.as_bytes_mut' class='fnname'>as_bytes_mut</a>(&amp;mut self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;mut [</a><a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
 <h4 id='method.as_bytes' class='method'><code>fn <a href='#method.as_bytes' class='fnname'>as_bytes</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
 <h4 id='method.as_u64s' class='method'><code>fn <a href='#method.as_u64s' class='fnname'>as_u64s</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a><a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
-<h4 id='method.from_elem' class='method'><code>fn <a href='#method.from_elem' class='fnname'>from_elem</a>(nbits: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, bit: <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../primal_bit/struct.BitVec.html' title='primal_bit::BitVec'>BitVec</a></code></h4>
+<h4 id='method.count_ones_before' class='method'><code>fn <a href='#method.count_ones_before' class='fnname'>count_ones_before</a>(&amp;self, bit: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<div class='docblock'><p>Count the number of ones for the bits up to but not including
+the <code>bit</code>th bit.</p>
+</div><h4 id='method.find_nth_bit' class='method'><code>fn <a href='#method.find_nth_bit' class='fnname'>find_nth_bit</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;</code></h4>
+<div class='docblock'><p>Find the index of the <code>n</code>th (0-indexed) set bit.</p>
+</div><h4 id='method.from_elem' class='method'><code>fn <a href='#method.from_elem' class='fnname'>from_elem</a>(nbits: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, bit: <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../primal_bit/struct.BitVec.html' title='primal_bit::BitVec'>BitVec</a></code></h4>
 <div class='docblock'><p>Creates a <code>BitVec</code> that holds <code>nbits</code> elements, setting each element
 to <code>bit</code>.</p>
 

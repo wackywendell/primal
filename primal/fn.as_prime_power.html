@@ -50,6 +50,18 @@
 (that is, including when <code>x</code> is itself a prime).</p>
 
 <p>Returns <code>None</code> if <code>x</code> not a perfect power.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>2</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>1</span>)));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>4</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>2</span>)));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>8</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>3</span>)));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>1024</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>10</span>)));
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>1000</span>), <span class='prelude-val'>None</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>15</span>), <span class='prelude-val'>None</span>);
+</pre>
 </div></section>
     <section id='search' class="content hidden"></section>
 

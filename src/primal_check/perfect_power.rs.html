@@ -175,6 +175,20 @@
 <span id="133">133</span>
 <span id="134">134</span>
 <span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>num</span>::<span class='ident'>Integer</span>;
 
@@ -244,6 +258,20 @@
 <span class='doccomment'>/// (that is, including when `x` is itself a prime).</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// Returns `None` if `x` not a perfect power.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Examples</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```rust</span>
+<span class='doccomment'>/// # extern crate primal_check as primal;</span>
+<span class='doccomment'>/// assert_eq!(primal::as_prime_power(2), Some((2, 1)));</span>
+<span class='doccomment'>/// assert_eq!(primal::as_prime_power(4), Some((2, 2)));</span>
+<span class='doccomment'>/// assert_eq!(primal::as_prime_power(8), Some((2, 3)));</span>
+<span class='doccomment'>/// assert_eq!(primal::as_prime_power(1024), Some((2, 10)));</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(primal::as_prime_power(1000), None);</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// assert_eq!(primal::as_prime_power(15), None);</span>
+<span class='doccomment'>/// ```</span>
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>as_prime_power</span>(<span class='ident'>x</span>: <span class='ident'>u64</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span>(<span class='ident'>u64</span>, <span class='ident'>u8</span>)<span class='op'>&gt;</span> {
     <span class='kw'>let</span> (<span class='ident'>y</span>, <span class='ident'>k</span>) <span class='op'>=</span> <span class='ident'>as_perfect_power</span>(<span class='ident'>x</span>);
     <span class='kw'>if</span> ::<span class='ident'>miller_rabin</span>(<span class='ident'>y</span>) {

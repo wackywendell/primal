@@ -468,7 +468,7 @@
     <span class='kw'>unsafe</span> {
         <span class='kw'>let</span> <span class='ident'>WheelElem</span> { <span class='ident'>unset_bit</span>, <span class='ident'>next_mult_factor</span>, <span class='ident'>correction</span>, <span class='ident'>next</span> } <span class='op'>=</span>
             <span class='op'>*</span><span class='ident'>wheel</span>.<span class='ident'>get_unchecked</span>(<span class='op'>*</span><span class='ident'>wi</span>);
-        <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>get_unchecked_mut</span>(<span class='op'>*</span><span class='ident'>si</span>) <span class='op'>|=</span> <span class='ident'>unset_bit</span>;
+        <span class='op'>*</span><span class='ident'>x</span>.<span class='ident'>get_unchecked_mut</span>(<span class='op'>*</span><span class='ident'>si</span>) <span class='op'>&amp;=</span> <span class='ident'>unset_bit</span>;
 
         <span class='op'>*</span><span class='ident'>si</span> <span class='op'>+=</span> <span class='ident'>prime</span> <span class='op'>*</span> <span class='ident'>next_mult_factor</span> <span class='kw'>as</span> <span class='ident'>usize</span>;
         <span class='op'>*</span><span class='ident'>si</span> <span class='op'>+=</span> <span class='ident'>correction</span> <span class='kw'>as</span> <span class='ident'>usize</span>;

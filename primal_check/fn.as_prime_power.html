@@ -45,11 +45,23 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-160' class='srclink' href='../src/primal_check/perfect_power.rs.html#69-76' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-160' class='srclink' href='../src/primal_check/perfect_power.rs.html#83-90' title='goto source code'>[src]</a></span></h1>
 <pre class='rust fn'>pub fn as_prime_power(x: <a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>)</a>&gt;</pre><div class='docblock'><p>Return <code>Some((p, k))</code> if <code>x = p^k</code> for some prime <code>p</code> and <code>k &gt;= 1</code>
 (that is, including when <code>x</code> is itself a prime).</p>
 
 <p>Returns <code>None</code> if <code>x</code> not a perfect power.</p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>2</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>1</span>)));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>4</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>2</span>)));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>8</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>3</span>)));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>1024</span>), <span class='prelude-val'>Some</span>((<span class='number'>2</span>, <span class='number'>10</span>)));
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>1000</span>), <span class='prelude-val'>None</span>);
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>primal</span>::<span class='ident'>as_prime_power</span>(<span class='number'>15</span>), <span class='prelude-val'>None</span>);
+</pre>
 </div></section>
     <section id='search' class="content hidden"></section>
 
