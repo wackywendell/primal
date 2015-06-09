@@ -28,8 +28,51 @@
 //! [dependencies]
 //! primal = "0.2"
 //! ```
+//! 
+//! The `Primes` class offers much of the necessary functionality one might
+//! need, by presenting an Iterator over all primes. For repeated queri
 //!
-//! # Examples
+//! # Basic Examples
+//! 
+//! ## "Indexing" Primes
+//! 
+//! Find the millionth prime:
+//!
+//! ```rust
+//! // (.nth is zero indexed.)
+//! let p = primal::Primes::all().nth(1_000_000 - 1).unwrap();
+//! println!("The 10001st prime is {}", p); // 15485863
+//! # assert_eq!(p, 15485863);
+//! ```
+//! 
+//! ## Find the first ten primes *after* the thousandth prime
+//!
+//! ```rust
+//! # let mut found = vec![7927, 7933, 7937, 7949, 7951, 7963, 7993, 8009, 8011, 8017];
+//! # found.reverse();
+//! let my_primes = primal::Primes::all();
+//! for (ix, n) in my_primes.enumerate().skip(1_000).take(10) {
+//!     println!("Prime {}: {}", ix, n);
+//!     # assert_eq!(Some(n), found.pop())
+//! }
+//! # assert_eq!(found, vec![]);
+//! ```
+//! 
+//! ## Check if a number is prime
+//!
+//! ```rust
+//! let primes_to_check = vec![10, 131, 873, 15485863];
+//! # let mut were_prime = vec![];
+//! 
+//! for n in primes_to_check {
+//!     let was_prime = primal::is_prime(n);
+//!     println!("Prime {}: {}", n, was_prime);
+//!     # were_prime.push(was_prime);
+//! }
+//! # assert_eq!(were_prime, vec![false, true, false, true]);
+//! ```
+//!
+//! # Advanced Examples
 //!
 //! ## "Indexing" Primes
 //!
